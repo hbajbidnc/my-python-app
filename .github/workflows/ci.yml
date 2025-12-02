@@ -26,9 +26,20 @@ jobs:
           python -m venv venv
           source venv/bin/activate
           pip install --upgrade pip
-          pip install pytest
+          pip install pytest flake8 black coverage
 
-      - name: Run tests
+      - name: Run flake8
         run: |
           source venv/bin/activate
-          pytest
+          flake8 .
+
+      - name: Run black
+        run: |
+          source venv/in/activate
+          black --check .
+
+      - name: Run tests with coverage
+        run: |
+          source venv/bin/activate
+          coverage run -m pytest
+          coverage report
