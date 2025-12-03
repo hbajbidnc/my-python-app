@@ -35,7 +35,7 @@ jobs:
 
       - name: Run black
         run: |
-          source venv/in/activate
+          source venv/bin/activate
           black --check .
 
       - name: Run tests with coverage
