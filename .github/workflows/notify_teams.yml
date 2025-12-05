@@ -1,0 +1,30 @@
+name: Notify Teams on Failure
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ckeckout code
+        uses: actions/checkout@v2
+
+      - name: Run tests
+        runs: |
+          echo "Running tests..."
+          exit 1
+
+      - name: Notify Teams on Failure
+        if: failre()
+        run: |
+          curl -H 'Content-Type: application/json' -d '{
+            "title": "GitHub Actions - Workflow Failed",
+            "text": "The workflow has failed. Please check the logs for more details."
+          }' ${{ secrets.TEAMS_WEBHOOK_URL }}
