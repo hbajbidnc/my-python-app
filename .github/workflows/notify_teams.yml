@@ -19,7 +19,7 @@ jobs:
       - name: Run tests
         run: |
           echo "Running tests..."
-          exit 1  # テストが失敗する例として、意図的にエラーを発生させます
+          exit 2  # テストが失敗する例として、意図的にエラーを発生させます
 
       - name: Notify Teams on failure
         if: failure()
