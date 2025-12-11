@@ -24,33 +24,12 @@ jobs:
       - name: Notify Teams on failure
         if: failure()
         env:
-          WEBHOOK_URL_TEST: ${{ secrets.WEBHOOK_URL_TEST }}
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
         run: |
           echo "Sending notification to Teams..."
           curl -v -H "Content-Type: application/json" -d '{
-            "title": "GitHub Actions - Workflow Failed",
-            "text": "The workflow has failed. Please check the logs for more details.",
-            "sections": [
-              {
-                "activityTitle": "Repository: ${{ github.repository }}",
-                "activitySubtitle": "Workflow: ${{ github.workflow }}",
-                "facts": [
-                  {
-                    "name": "Branch",
-                    "value": "${{ github.ref }}"
-                  },
-                  {
-                    "name": "Commit",
-                    "value": "${{ github.sha }}"
-                  },
-                  {
-                    "name": "Event",
-                    "value": "${{ github.event_name }}"
-                  }
-                ]
-              }
-            ]
-          }' $WEBHOOK_URL_TEST
+            "text": "GitHub Actions - Workflow Failed: ${{ github.workflow }} in ${{ github.repository }}. Check logs for details."
+          }' $WEBHOOK_URL
           echo "Notification sent."
 
       - name: Debug Webhook URL
