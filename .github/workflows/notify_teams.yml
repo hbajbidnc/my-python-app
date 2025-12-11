@@ -24,7 +24,7 @@ jobs:
       - name: Notify Teams on failure
         if: failure()
         env:
-          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          WEBHOOK_URL_TEST: ${{ secrets.WEBHOOK_URL_TEST }}
         run: |
           echo "Sending notification to Teams..."
           curl -v -H "Content-Type: application/json" -d '{
@@ -50,5 +50,5 @@ jobs:
                 ]
               }
             ]
-          }' $WEBHOOK_URL
+          }' $WEBHOOK_URL_TEST
           echo "Notification sent."
