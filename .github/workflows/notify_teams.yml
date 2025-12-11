@@ -24,15 +24,15 @@ jobs:
       - name: Notify Teams on failure
         if: failure()
         env:
-          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          WEBHOOK_URL_TEST: ${{ secrets.WEBHOOK_URL_TEST }}
         run: |
           echo "Sending notification to Teams..."
           curl -v -H "Content-Type: application/json" -d '{
             "text": "GitHub Actions - Workflow Failed: ${{ github.workflow }} in ${{ github.repository }}. Check logs for details."
-          }' $WEBHOOK_URL
+          }' $WEBHOOK_URL_TEST
           echo "Notification sent."
 
       - name: Debug Webhook URL
         run: echo $WEBHOOK_URL_TEST
         env:
-          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL_TEST }}
+          WEBHOOK_URL_TEST: ${{ secrets.WEBHOOK_URL_TEST }}
