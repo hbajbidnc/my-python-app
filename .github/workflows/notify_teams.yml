@@ -52,3 +52,8 @@ jobs:
             ]
           }' $WEBHOOK_URL_TEST
           echo "Notification sent."
+
+      - name: Debug Webhook URL
+        run: echo $WEBHOOK_URL
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
